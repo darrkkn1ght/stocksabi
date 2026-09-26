@@ -1,0 +1,21 @@
+/* STOCKSABI Design System Tokens */
+:root {
+  --color-primary: #174B3A;
+  --color-primary-dark: #10372B;
+  --color-accent: #D7F36B;
+  --color-ivory: #F7F5EF;
+  --color-surface: #FFFFFF;
+  --color-text-main: #202820;
+  --color-text-muted: #73796F;
+  --color-border: #E5E4DA;
+  --color-success: #367A53;
+  --color-warning: #B77826;
+  --color-danger: #B74C43;
+
+  --radius-card: 16px;
+  --radius-input: 10px;
+  --radius-button: 10px;
+  --radius-badge: 6px;
+
+  --sidebar-width: 232px;
+}
