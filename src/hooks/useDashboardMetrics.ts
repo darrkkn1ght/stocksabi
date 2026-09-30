@@ -4,15 +4,17 @@ import { useSales } from './useSales'
 import { useExpenses } from './useExpenses'
 
 export function useDashboardMetrics() {
-  const { activeProducts, inventoryValue, getStockStatus } = useInventory()
-  const { sales } = useSales()
-  const { expenses } = useExpenses()
+  const { activeProducts, inventoryValue, getStockStatus, isLoading: inventoryLoading } = useInventory()
+  const { sales, isLoading: salesLoading } = useSales()
+  const { expenses, isLoading: expensesLoading } = useExpenses()
+
+  const isLoading = inventoryLoading || salesLoading || expensesLoading
 
   // Business Name
   const businessName = 'Tunde' // In future, read from a Business Profile
 
   // Determine empty state
-  const hasNoData = activeProducts.length === 0 && sales.length === 0 && expenses.length === 0
+  const hasNoData = !isLoading && activeProducts.length === 0 && sales.length === 0 && expenses.length === 0
 
   // Today's metrics
   const todayStart = useMemo(() => {
@@ -114,6 +116,7 @@ export function useDashboardMetrics() {
     recentTransactions,
     needsAttention,
     weeklyActivity,
-    getStockStatus
+    getStockStatus,
+    isLoading
   }
 }

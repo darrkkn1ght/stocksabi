@@ -23,7 +23,7 @@ export const SalesPage: React.FC = () => {
           <Link to="/sales/new">
             <Button
               variant="primary"
-              leftIcon={<Plus className="w-4 h-4 text-[#D7F36B]" />}
+              leftIcon={<Plus className="w-4 h-4 text-[#356AE6]" />}
             >
               Record sale
             </Button>
@@ -35,8 +35,8 @@ export const SalesPage: React.FC = () => {
         <div className="py-24 flex flex-col items-center justify-center text-center">
           <div className="relative w-32 h-32 mb-8">
             <div className="absolute inset-0 bg-[#E5E4DA] rounded-[8px] transform rotate-[6deg] opacity-50"></div>
-            <div className="absolute inset-0 bg-[#174B3A] rounded-[8px] flex items-center justify-center shadow-lg">
-              <ReceiptText className="w-10 h-10 text-[#D7F36B]" />
+            <div className="absolute inset-0 bg-[#17243A] rounded-[8px] flex items-center justify-center shadow-lg">
+              <ReceiptText className="w-10 h-10 text-[#356AE6]" />
             </div>
             <div className="absolute -bottom-2 -left-2 w-12 h-12 bg-white border border-[#E5E4DA] rounded-[6px] shadow-sm flex items-center justify-center">
                <Plus className="w-5 h-5 text-[#202820]" />
@@ -53,7 +53,7 @@ export const SalesPage: React.FC = () => {
             <Button
               variant="primary"
               size="lg"
-              leftIcon={<Plus className="w-4 h-4 text-[#D7F36B]" />}
+              leftIcon={<Plus className="w-4 h-4 text-[#356AE6]" />}
             >
               Record first sale
             </Button>
@@ -67,19 +67,19 @@ export const SalesPage: React.FC = () => {
               <p className="text-[10px] font-bold text-[#73796F] uppercase tracking-[0.15em] mb-1">
                 Today's Sales
               </p>
-              <p className="text-3xl font-serif text-[#174B3A]">{formatNaira(todaySalesTotal, { showDecimals: false })}</p>
+              <p className="text-3xl font-serif text-[#17243A]">{formatNaira(todaySalesTotal, { showDecimals: false })}</p>
             </div>
             <div className="flex-1 py-4 px-0 md:px-6 border-b md:border-b-0 md:border-r border-[#E5E4DA]">
               <p className="text-[10px] font-bold text-[#73796F] uppercase tracking-[0.15em] mb-1">
                 Transactions
               </p>
-              <p className="text-3xl font-serif text-[#174B3A]">{transactionCount}</p>
+              <p className="text-3xl font-serif text-[#17243A]">{transactionCount}</p>
             </div>
             <div className="flex-1 py-4 px-0 md:pl-6">
               <p className="text-[10px] font-bold text-[#73796F] uppercase tracking-[0.15em] mb-1">
                 Avg Transaction Value
               </p>
-              <p className="text-3xl font-serif text-[#174B3A]">
+              <p className="text-3xl font-serif text-[#17243A]">
                 {formatNaira(averageTransactionValue, { showDecimals: false })}
               </p>
             </div>
@@ -106,7 +106,7 @@ export const SalesPage: React.FC = () => {
                       <tr key={sale.id} className="group hover:bg-white transition-colors duration-150">
                         <td className="py-4">
                           <Link to={`/sales/${sale.id}`} className="block">
-                            <p className="text-[15px] font-semibold text-[#202820] group-hover:text-[#174B3A] transition-colors leading-tight font-mono tracking-tight">
+                            <p className="text-[15px] font-semibold text-[#202820] group-hover:text-[#17243A] transition-colors leading-tight font-mono tracking-tight">
                               {sale.id}
                             </p>
                           </Link>
@@ -144,7 +144,7 @@ export const SalesPage: React.FC = () => {
                           </div>
                         </td>
                         <td className="py-4 text-right pr-2">
-                          <Link to={`/sales/${sale.id}`} className="inline-flex p-1.5 text-[#73796F] hover:text-[#174B3A] hover:bg-[#F7F5EF] rounded-md transition-colors">
+                          <Link to={`/sales/${sale.id}`} className="inline-flex p-1.5 text-[#73796F] hover:text-[#17243A] hover:bg-[#F7F5EF] rounded-md transition-colors">
                             <ArrowRight className="w-4 h-4" />
                           </Link>
                         </td>

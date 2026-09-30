@@ -51,7 +51,7 @@ export const InventoryPage: React.FC = () => {
           <Link to="/inventory/new">
             <Button
               variant="primary"
-              leftIcon={<Plus className="w-4 h-4 text-[#D7F36B]" />}
+              leftIcon={<Plus className="w-4 h-4 text-[#356AE6]" />}
             >
               Add product
             </Button>
@@ -64,8 +64,8 @@ export const InventoryPage: React.FC = () => {
           {/* Abstract CSS Illustration */}
           <div className="relative w-32 h-32 mb-8">
             <div className="absolute inset-0 bg-[#E5E4DA] rounded-[8px] transform rotate-[-6deg] opacity-50"></div>
-            <div className="absolute inset-0 bg-[#174B3A] rounded-[8px] flex items-center justify-center shadow-lg">
-              <LayoutGrid className="w-10 h-10 text-[#D7F36B]" />
+            <div className="absolute inset-0 bg-[#17243A] rounded-[8px] flex items-center justify-center shadow-lg">
+              <LayoutGrid className="w-10 h-10 text-[#356AE6]" />
             </div>
             <div className="absolute -bottom-2 -right-2 w-12 h-12 bg-white border border-[#E5E4DA] rounded-[6px] shadow-sm flex items-center justify-center">
                <Plus className="w-5 h-5 text-[#202820]" />
@@ -82,7 +82,7 @@ export const InventoryPage: React.FC = () => {
             <Button
               variant="primary"
               size="lg"
-              leftIcon={<Plus className="w-4 h-4 text-[#D7F36B]" />}
+              leftIcon={<Plus className="w-4 h-4 text-[#356AE6]" />}
             >
               Add your first product
             </Button>
@@ -96,19 +96,19 @@ export const InventoryPage: React.FC = () => {
               <p className="text-[10px] font-bold text-[#73796F] uppercase tracking-[0.15em] mb-1">
                 Catalog
               </p>
-              <p className="text-3xl font-serif text-[#174B3A]">{totalProducts} <span className="text-lg font-sans font-normal text-[#73796F]">products</span></p>
+              <p className="text-3xl font-serif text-[#17243A]">{totalProducts} <span className="text-lg font-sans font-normal text-[#73796F]">products</span></p>
             </div>
             <div className="flex-1 py-4 px-0 md:px-6 border-b md:border-b-0 md:border-r border-[#E5E4DA]">
               <p className="text-[10px] font-bold text-[#73796F] uppercase tracking-[0.15em] mb-1">
                 In Stock
               </p>
-              <p className="text-3xl font-serif text-[#174B3A]">{unitsInStock} <span className="text-lg font-sans font-normal text-[#73796F]">units</span></p>
+              <p className="text-3xl font-serif text-[#17243A]">{unitsInStock} <span className="text-lg font-sans font-normal text-[#73796F]">units</span></p>
             </div>
             <div className="flex-1 py-4 px-0 md:px-6 border-b md:border-b-0 md:border-r border-[#E5E4DA]">
               <p className="text-[10px] font-bold text-[#73796F] uppercase tracking-[0.15em] mb-1">
                 Inventory Value
               </p>
-              <p className="text-3xl font-serif text-[#174B3A]">{formatNaira(inventoryValue, { showDecimals: false })}</p>
+              <p className="text-3xl font-serif text-[#17243A]">{formatNaira(inventoryValue, { showDecimals: false })}</p>
             </div>
             <div className="flex-1 py-4 px-0 md:pl-6">
               <p className="text-[10px] font-bold text-[#73796F] uppercase tracking-[0.15em] mb-1">
@@ -143,7 +143,7 @@ export const InventoryPage: React.FC = () => {
                   leftIcon={<Search className="w-4 h-4" />}
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="bg-transparent border-0 border-b border-[#E5E4DA] rounded-none px-0 focus:ring-0 focus:border-[#174B3A] pl-8"
+                  className="bg-transparent border-0 border-b border-[#E5E4DA] rounded-none px-0 focus:ring-0 focus:border-[#17243A] pl-8"
                 />
               </div>
             </div>

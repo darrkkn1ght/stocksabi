@@ -54,7 +54,7 @@ export const ProductDetailsPage: React.FC = () => {
   return (
     <div className="max-w-4xl mx-auto pb-20">
       <div className="mb-6">
-        <Link to="/inventory" className="text-xs font-bold uppercase tracking-widest text-[#73796F] hover:text-[#174B3A] inline-flex items-center gap-1.5 transition-colors">
+        <Link to="/inventory" className="text-xs font-bold uppercase tracking-widest text-[#73796F] hover:text-[#17243A] inline-flex items-center gap-1.5 transition-colors">
           <ArrowLeft className="w-3.5 h-3.5" /> Inventory
         </Link>
       </div>
@@ -83,7 +83,7 @@ export const ProductDetailsPage: React.FC = () => {
           <Link to={`/inventory/${product.id}/edit`}>
             <Button
               variant="primary"
-              leftIcon={<Pencil className="w-4 h-4 text-[#D7F36B]" />}
+              leftIcon={<Pencil className="w-4 h-4 text-[#356AE6]" />}
             >
               Edit Product
             </Button>
@@ -135,7 +135,7 @@ export const ProductDetailsPage: React.FC = () => {
               <div>
                 <p className="text-xs text-[#73796F] mb-1">Current Quantity</p>
                 <div className="flex items-baseline gap-2">
-                  <p className={`text-5xl font-serif tracking-tight ${product.stockQuantity === 0 ? 'text-[#B74C43]' : 'text-[#174B3A]'}`}>
+                  <p className={`text-5xl font-serif tracking-tight ${product.stockQuantity === 0 ? 'text-[#B74C43]' : 'text-[#17243A]'}`}>
                     {product.stockQuantity}
                   </p>
                   <span className="text-sm font-medium text-[#73796F]">units</span>

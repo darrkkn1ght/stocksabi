@@ -17,7 +17,7 @@ export const NewProductPage: React.FC = () => {
   return (
     <div className="max-w-3xl mx-auto space-y-8 animate-in fade-in duration-200">
       <div className="mb-4">
-        <Link to="/inventory" className="text-xs font-bold uppercase tracking-widest text-[#73796F] hover:text-[#174B3A] inline-flex items-center gap-1.5 transition-colors">
+        <Link to="/inventory" className="text-xs font-bold uppercase tracking-widest text-[#73796F] hover:text-[#17243A] inline-flex items-center gap-1.5 transition-colors">
           <ArrowLeft className="w-3.5 h-3.5" /> Inventory
         </Link>
       </div>

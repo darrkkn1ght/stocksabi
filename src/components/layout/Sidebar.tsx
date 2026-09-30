@@ -1,5 +1,7 @@
 import React from 'react'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
+import { useAuth } from '../../lib/AuthContext'
+import { Logo } from '../ui/Logo'
 import {
   LayoutDashboard,
   ShoppingBag,
@@ -8,6 +10,7 @@ import {
   TrendingUp,
   Settings,
   Store,
+  LogOut,
 } from 'lucide-react'
 
 export interface NavItem {
@@ -26,23 +29,22 @@ export const navigationItems: NavItem[] = [
 ]
 
 export const Sidebar: React.FC = () => {
+  const { business, signOut } = useAuth()
+  const navigate = useNavigate()
+
+  const handleLogout = async () => {
+    await signOut()
+    navigate('/login')
+  }
+
   return (
     <aside className="w-[232px] shrink-0 border-r border-[#E5E4DA] bg-white flex flex-col justify-between h-screen sticky top-0">
       {/* Brand Header */}
       <div>
         <div className="px-5 py-6 border-b border-[#E5E4DA]/80">
-          <div className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-[8px] bg-[#174B3A] flex items-center justify-center text-[#D7F36B] font-serif font-bold text-lg shadow-xs">
-              S
-            </div>
-            <div>
-              <span className="font-serif text-xl font-bold tracking-tight text-[#174B3A] block leading-none">
-                STOCKSABI
-              </span>
-            </div>
-          </div>
+          <Logo className="scale-[0.85] origin-left" />
           <p className="text-[11px] text-[#73796F] italic mt-3 leading-tight font-serif">
-            Business, made visible.
+            Know your stock. Understand your money.
           </p>
         </div>
 
@@ -61,7 +63,7 @@ export const Sidebar: React.FC = () => {
                 className={({ isActive }) =>
                   `flex items-center gap-3 px-3 py-2 rounded-[10px] text-sm font-medium transition-colors ${
                     isActive
-                      ? 'bg-[#174B3A] text-white shadow-xs'
+                      ? 'bg-[#17243A] text-white shadow-xs'
                       : 'text-[#5C6358] hover:text-[#202820] hover:bg-[#F7F5EF]'
                   }`
                 }
@@ -70,7 +72,7 @@ export const Sidebar: React.FC = () => {
                   <>
                     <Icon
                       className={`w-4 h-4 shrink-0 ${
-                        isActive ? 'text-[#D7F36B]' : 'text-[#73796F]'
+                        isActive ? 'text-[#356AE6]' : 'text-[#73796F]'
                       }`}
                     />
                     <span>{item.name}</span>
@@ -84,19 +86,28 @@ export const Sidebar: React.FC = () => {
 
       {/* Store Profile Footer */}
       <div className="p-3 border-t border-[#E5E4DA] bg-[#FAF8F3]">
-        <div className="p-2.5 rounded-[10px] border border-[#E5E4DA] bg-white flex items-center gap-2.5">
-          <div className="w-8 h-8 rounded-[8px] bg-[#E8F1EC] text-[#174B3A] flex items-center justify-center shrink-0">
-            <Store className="w-4 h-4" />
+        <div className="p-2.5 rounded-[10px] border border-[#E5E4DA] bg-white flex items-center justify-between gap-2.5">
+          <div className="flex items-center gap-2 min-w-0">
+            <div className="w-8 h-8 rounded-[8px] bg-[#DDE8FF] text-[#17243A] flex items-center justify-center shrink-0">
+              <Store className="w-4 h-4" />
+            </div>
+            <div className="min-w-0 flex-1">
+              <p className="text-xs font-semibold text-[#202820] truncate">
+                {business?.name || 'My Store'}
+              </p>
+              <p className="text-[11px] text-[#73796F] truncate flex items-center gap-1">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#367A53] inline-block" />
+                {business?.country || 'NG'} ({business?.currency || 'NGN'})
+              </p>
+            </div>
           </div>
-          <div className="min-w-0 flex-1">
-            <p className="text-xs font-semibold text-[#202820] truncate">
-              Tunde Provisions
-            </p>
-            <p className="text-[11px] text-[#73796F] truncate flex items-center gap-1">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#367A53] inline-block" />
-              Ibadan, NG (NGN)
-            </p>
-          </div>
+          <button 
+            onClick={handleLogout}
+            title="Log out"
+            className="p-1.5 text-[#73796F] hover:text-[#B74C43] hover:bg-[#F7F5EF] rounded-md transition-colors"
+          >
+            <LogOut className="w-4 h-4" />
+          </button>
         </div>
       </div>
     </aside>

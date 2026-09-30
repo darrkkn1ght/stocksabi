@@ -37,7 +37,7 @@ export const ExpenseDetailsPage: React.FC = () => {
   return (
     <div className="max-w-3xl mx-auto pb-20 animate-in fade-in duration-200 relative">
       <div className="mb-6">
-        <Link to="/expenses" className="text-xs font-bold uppercase tracking-widest text-[#73796F] hover:text-[#174B3A] inline-flex items-center gap-1.5 transition-colors">
+        <Link to="/expenses" className="text-xs font-bold uppercase tracking-widest text-[#73796F] hover:text-[#17243A] inline-flex items-center gap-1.5 transition-colors">
           <ArrowLeft className="w-3.5 h-3.5" /> Expenses History
         </Link>
       </div>
@@ -49,7 +49,7 @@ export const ExpenseDetailsPage: React.FC = () => {
             {expense.description}
           </h1>
           <div className="flex items-center gap-4 text-sm text-[#73796F]">
-            <span className="capitalize font-bold text-[#174B3A] bg-[#F7F5EF] px-2 py-0.5 rounded-[6px]">
+            <span className="capitalize font-bold text-[#17243A] bg-[#F7F5EF] px-2 py-0.5 rounded-[6px]">
               {expense.category}
             </span>
             <span className="w-1 h-1 rounded-full bg-[#E5E4DA]"></span>
@@ -73,7 +73,7 @@ export const ExpenseDetailsPage: React.FC = () => {
           <Link to={`/expenses/${expense.id}/edit`}>
             <Button
               variant="primary"
-              leftIcon={<Pencil className="w-4 h-4 text-[#D7F36B]" />}
+              leftIcon={<Pencil className="w-4 h-4 text-[#356AE6]" />}
             >
               Edit
             </Button>

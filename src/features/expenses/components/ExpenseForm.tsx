@@ -52,7 +52,7 @@ export const ExpenseForm: React.FC<ExpenseFormProps> = ({
       
       <section className="bg-white border border-[#E5E4DA] rounded-[16px] overflow-hidden shadow-xs">
         <div className="bg-[#F7F5EF]/50 px-6 py-4 border-b border-[#E5E4DA]">
-          <h2 className="text-[11px] font-bold text-[#174B3A] uppercase tracking-[0.15em]">
+          <h2 className="text-[11px] font-bold text-[#17243A] uppercase tracking-[0.15em]">
             Expense Details
           </h2>
         </div>
@@ -71,7 +71,7 @@ export const ExpenseForm: React.FC<ExpenseFormProps> = ({
               </label>
               <select
                 {...register('category')}
-                className={`w-full px-4 py-3 bg-[#F7F5EF] border border-transparent rounded-[12px] text-sm text-[#202820] outline-none transition-all focus:bg-white focus:border-[#174B3A] focus:ring-4 focus:ring-[#174B3A]/10 ${
+                className={`w-full px-4 py-3 bg-[#F7F5EF] border border-transparent rounded-[12px] text-sm text-[#202820] outline-none transition-all focus:bg-white focus:border-[#17243A] focus:ring-4 focus:ring-[#17243A]/10 ${
                   errors.category ? 'border-[#B74C43] focus:border-[#B74C43] focus:ring-[#B74C43]/10 bg-white' : ''
                 }`}
               >
@@ -126,7 +126,7 @@ export const ExpenseForm: React.FC<ExpenseFormProps> = ({
           size="lg"
           className="w-full sm:w-auto min-w-[200px]"
           isLoading={isSubmitting}
-          leftIcon={<Check className="w-4 h-4 text-[#D7F36B]" />}
+          leftIcon={<Check className="w-4 h-4 text-[#356AE6]" />}
         >
           Save Expense
         </Button>

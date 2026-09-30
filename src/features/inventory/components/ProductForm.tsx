@@ -59,7 +59,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
       {/* Product Information Section */}
       <section className="bg-white border border-[#E5E4DA] rounded-[16px] overflow-hidden shadow-xs">
         <div className="bg-[#F7F5EF]/50 px-6 py-4 border-b border-[#E5E4DA]">
-          <h2 className="text-[11px] font-bold text-[#174B3A] uppercase tracking-[0.15em]">
+          <h2 className="text-[11px] font-bold text-[#17243A] uppercase tracking-[0.15em]">
             Product Information
           </h2>
         </div>
@@ -82,7 +82,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
       {/* Pricing Section */}
       <section className="bg-white border border-[#E5E4DA] rounded-[16px] overflow-hidden shadow-xs">
         <div className="bg-[#F7F5EF]/50 px-6 py-4 border-b border-[#E5E4DA]">
-          <h2 className="text-[11px] font-bold text-[#174B3A] uppercase tracking-[0.15em]">
+          <h2 className="text-[11px] font-bold text-[#17243A] uppercase tracking-[0.15em]">
             Pricing
           </h2>
         </div>
@@ -116,7 +116,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
       {/* Stock Section */}
       <section className="bg-white border border-[#E5E4DA] rounded-[16px] overflow-hidden shadow-xs">
         <div className="bg-[#F7F5EF]/50 px-6 py-4 border-b border-[#E5E4DA]">
-          <h2 className="text-[11px] font-bold text-[#174B3A] uppercase tracking-[0.15em]">
+          <h2 className="text-[11px] font-bold text-[#17243A] uppercase tracking-[0.15em]">
             Stock
           </h2>
         </div>
@@ -152,7 +152,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
           size="lg"
           className="w-full sm:w-auto min-w-[200px]"
           isLoading={isSubmitting}
-          leftIcon={<Check className="w-4 h-4 text-[#D7F36B]" />}
+          leftIcon={<Check className="w-4 h-4 text-[#356AE6]" />}
         >
           Save Product
         </Button>

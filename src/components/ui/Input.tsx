@@ -40,7 +40,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
               ${
                 error
                   ? 'border-[#B74C43] focus:border-[#B74C43] focus:ring-2 focus:ring-[#B74C43]/20'
-                  : 'border-[#E5E4DA] focus:border-[#174B3A] focus:ring-2 focus:ring-[#174B3A]/15'
+                  : 'border-[#E5E4DA] focus:border-[#17243A] focus:ring-2 focus:ring-[#17243A]/15'
               }
               disabled:bg-[#F2EFE8] disabled:text-[#8C9187] disabled:cursor-not-allowed
               ${className}`}

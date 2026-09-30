@@ -44,7 +44,7 @@ export const DashboardPage: React.FC = () => {
           <div className="absolute top-0 right-0 w-64 h-64 bg-[#F7F5EF] rounded-full blur-3xl -mr-20 -mt-20 opacity-60"></div>
           
           <div className="relative z-10">
-            <h2 className="text-3xl font-serif font-bold text-[#174B3A] mb-4">Your business starts here.</h2>
+            <h2 className="text-3xl font-serif font-bold text-[#17243A] mb-4">Your business starts here.</h2>
             <p className="text-[#73796F] text-lg max-w-lg mx-auto leading-relaxed mb-10 font-serif">
               Add your products and record your first sale. STOCKSABI will turn those transactions into a clearer picture of your business.
             </p>
@@ -56,7 +56,7 @@ export const DashboardPage: React.FC = () => {
                 </Button>
               </Link>
               <Link to="/sales/new">
-                <Button variant="primary" size="lg" className="w-full sm:w-auto min-w-[200px]" leftIcon={<Plus className="w-4 h-4 text-[#D7F36B]" />}>
+                <Button variant="primary" size="lg" className="w-full sm:w-auto min-w-[200px]" leftIcon={<Plus className="w-4 h-4 text-[#356AE6]" />}>
                   Record first sale
                 </Button>
               </Link>
@@ -89,7 +89,7 @@ export const DashboardPage: React.FC = () => {
             </Button>
           </Link>
           <Link to="/sales/new" className="w-full sm:w-auto">
-            <Button variant="primary" leftIcon={<Plus className="w-4 h-4 text-[#D7F36B]" />} className="w-full shadow-md">
+            <Button variant="primary" leftIcon={<Plus className="w-4 h-4 text-[#356AE6]" />} className="w-full shadow-md">
               Record sale
             </Button>
           </Link>
@@ -103,7 +103,7 @@ export const DashboardPage: React.FC = () => {
         <div className="lg:col-span-4 bg-white p-8 md:p-10 flex flex-col justify-center relative overflow-hidden">
           <div className="absolute -right-12 -top-12 w-40 h-40 bg-[#F7F5EF] rounded-full blur-2xl opacity-60"></div>
           <div className="relative z-10">
-            <h2 className="text-[11px] font-bold text-[#174B3A] uppercase tracking-[0.2em] mb-4">Today's Sales</h2>
+            <h2 className="text-[11px] font-bold text-[#17243A] uppercase tracking-[0.2em] mb-4">Today's Sales</h2>
             <p className="text-5xl md:text-6xl font-mono tracking-tighter font-bold text-[#202820] mb-3">
               {formatNaira(todayRevenue, { showDecimals: false })}
             </p>
@@ -120,13 +120,13 @@ export const DashboardPage: React.FC = () => {
         </div>
 
         {/* Supporting Metrics */}
-        <div className="lg:col-span-8 bg-[#174B3A] p-8 md:p-10 text-white flex flex-col justify-center">
+        <div className="lg:col-span-8 bg-[#17243A] p-8 md:p-10 text-white flex flex-col justify-center">
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 md:gap-12">
             
-            <div className="border-b sm:border-b-0 sm:border-r border-[#10372B] pb-6 sm:pb-0 sm:pr-8 flex flex-col justify-between">
+            <div className="border-b sm:border-b-0 sm:border-r border-[#111b2b] pb-6 sm:pb-0 sm:pr-8 flex flex-col justify-between">
               <div>
-                <h3 className="text-[10px] font-bold text-[#D7F36B]/80 uppercase tracking-[0.2em] mb-3">Gross Profit</h3>
-                <p className="text-3xl md:text-4xl font-serif font-bold text-[#D7F36B] mb-2">
+                <h3 className="text-[10px] font-bold text-[#356AE6]/80 uppercase tracking-[0.2em] mb-3">Gross Profit</h3>
+                <p className="text-3xl md:text-4xl font-serif font-bold text-[#356AE6] mb-2">
                   {formatNaira(todayGrossProfit, { showDecimals: false })}
                 </p>
               </div>
@@ -137,10 +137,10 @@ export const DashboardPage: React.FC = () => {
               </p>
             </div>
 
-            <div className="border-b sm:border-b-0 sm:border-r border-[#10372B] pb-6 sm:pb-0 sm:pr-8 flex flex-col justify-between">
+            <div className="border-b sm:border-b-0 sm:border-r border-[#111b2b] pb-6 sm:pb-0 sm:pr-8 flex flex-col justify-between">
               <div>
-                <h3 className="text-[10px] font-bold text-[#D7F36B]/80 uppercase tracking-[0.2em] mb-3">Expenses</h3>
-                <p className="text-3xl md:text-4xl font-serif font-bold text-[#D7F36B] mb-2">
+                <h3 className="text-[10px] font-bold text-[#356AE6]/80 uppercase tracking-[0.2em] mb-3">Expenses</h3>
+                <p className="text-3xl md:text-4xl font-serif font-bold text-[#356AE6] mb-2">
                   {formatNaira(todayOperatingExpenses, { showDecimals: false })}
                 </p>
               </div>
@@ -191,8 +191,8 @@ export const DashboardPage: React.FC = () => {
                   <AreaChart data={weeklyActivity} margin={{ top: 10, right: 0, left: -20, bottom: 0 }}>
                     <defs>
                       <linearGradient id="colorRevenue" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="5%" stopColor="#174B3A" stopOpacity={0.1}/>
-                        <stop offset="95%" stopColor="#174B3A" stopOpacity={0}/>
+                        <stop offset="5%" stopColor="#17243A" stopOpacity={0.1}/>
+                        <stop offset="95%" stopColor="#17243A" stopOpacity={0}/>
                       </linearGradient>
                     </defs>
                     <XAxis 
@@ -204,14 +204,14 @@ export const DashboardPage: React.FC = () => {
                     />
                     <Tooltip 
                       contentStyle={{ borderRadius: '8px', border: '1px solid #E5E4DA', boxShadow: '0 4px 6px -1px rgba(0,0,0,0.05)' }}
-                      itemStyle={{ color: '#174B3A', fontWeight: 'bold' }}
+                      itemStyle={{ color: '#17243A', fontWeight: 'bold' }}
                       labelStyle={{ color: '#73796F', marginBottom: '4px' }}
                       formatter={(value: any) => [formatNaira(Number(value) || 0), 'Revenue']}
                     />
                     <Area 
                       type="monotone" 
                       dataKey="revenue" 
-                      stroke="#174B3A" 
+                      stroke="#17243A" 
                       strokeWidth={2}
                       fillOpacity={1} 
                       fill="url(#colorRevenue)" 
@@ -226,7 +226,7 @@ export const DashboardPage: React.FC = () => {
           <section>
             <div className="flex justify-between items-end mb-6 border-b border-[#E5E4DA] pb-2">
               <h2 className="text-lg font-serif font-bold text-[#202820]">Recent transactions</h2>
-              <Link to="/sales" className="text-xs font-bold text-[#174B3A] hover:underline uppercase tracking-wider flex items-center gap-1">
+              <Link to="/sales" className="text-xs font-bold text-[#17243A] hover:underline uppercase tracking-wider flex items-center gap-1">
                 View all <ArrowRight className="w-3 h-3" />
               </Link>
             </div>
@@ -293,9 +293,9 @@ export const DashboardPage: React.FC = () => {
                   const isOut = status === 'out_of_stock'
                   
                   return (
-                    <Link key={product.id} to={`/inventory/${product.id}`} className="block bg-white border border-[#E5E4DA] rounded-[12px] p-4 shadow-xs hover:border-[#174B3A]/30 hover:shadow-sm transition-all group">
+                    <Link key={product.id} to={`/inventory/${product.id}`} className="block bg-white border border-[#E5E4DA] rounded-[12px] p-4 shadow-xs hover:border-[#17243A]/30 hover:shadow-sm transition-all group">
                       <div className="flex justify-between items-start mb-3">
-                        <p className="text-sm font-bold text-[#202820] group-hover:text-[#174B3A] transition-colors pr-2 leading-tight">
+                        <p className="text-sm font-bold text-[#202820] group-hover:text-[#17243A] transition-colors pr-2 leading-tight">
                           {product.name}
                         </p>
                         <div className="shrink-0">
@@ -347,8 +347,8 @@ export const DashboardPage: React.FC = () => {
                   <span className="text-lg font-bold text-[#202820] font-mono">{formatNaira(inventoryValue, { showDecimals: false })}</span>
                 </div>
                 <div className="p-4 flex justify-between items-center bg-[#F7F5EF]">
-                  <span className="text-sm font-bold text-[#174B3A]">Transactions Today</span>
-                  <span className="text-lg font-bold text-[#174B3A] font-mono">{todaysTransactionsCount}</span>
+                  <span className="text-sm font-bold text-[#17243A]">Transactions Today</span>
+                  <span className="text-lg font-bold text-[#17243A] font-mono">{todaysTransactionsCount}</span>
                 </div>
               </div>
             </div>

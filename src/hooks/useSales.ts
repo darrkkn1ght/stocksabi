@@ -1,22 +1,11 @@
-import { useState, useEffect, useMemo, useCallback } from 'react'
-import type { Sale, SaleItem, PaymentMethod } from '../types'
-import { getStorageItem, setStorageItem } from '../lib/storage'
-import { useInventory } from './useInventory'
-
-const SALES_STORAGE_KEY = 'stocksabi_sales'
+import { useMemo, useCallback } from 'react'
+import type { SaleItem, PaymentMethod } from '../types'
+import { useData } from '../lib/DataContext'
 
 export function useSales() {
-  const [sales, setSales] = useState<Sale[]>(() =>
-    getStorageItem<Sale[]>(SALES_STORAGE_KEY, [])
-  )
+  const { sales, products, addSale, isLoading } = useData()
 
-  const { products, updateProduct } = useInventory()
-
-  useEffect(() => {
-    setStorageItem(SALES_STORAGE_KEY, sales)
-  }, [sales])
-
-  const recordSale = useCallback((
+  const recordSale = useCallback(async (
     items: Omit<SaleItem, 'lineTotal'>[],
     paymentMethod: PaymentMethod
   ) => {
@@ -40,33 +29,17 @@ export function useSales() {
       }
     }
 
-    // 3. Create the sale
-    const prefix = 'SALE'
-    const newId = `${prefix}-${(sales.length + 1).toString().padStart(3, '0')}`
-    
-    const newSale: Sale = {
-      id: newId,
+    // 3. Create the sale via context
+    const newSaleId = await addSale({
       items: saleItems,
       subtotal,
       total,
       paymentMethod,
-      status: 'completed',
-      createdAt: new Date().toISOString(),
-    }
+      status: 'completed'
+    })
 
-    // 4. Update inventory (decrease stock)
-    for (const item of saleItems) {
-      const product = products.find((p) => p.id === item.productId)!
-      updateProduct(product.id, {
-        stockQuantity: product.stockQuantity - item.quantity,
-      })
-    }
-
-    // 5. Save the sale
-    setSales((prev) => [newSale, ...prev])
-
-    return newSale.id
-  }, [products, sales.length, updateProduct])
+    return newSaleId
+  }, [products, addSale])
 
   const getSale = useCallback((id: string) => {
     return sales.find((s) => s.id === id)
@@ -95,6 +68,7 @@ export function useSales() {
 
   return {
     sales,
+    isLoading,
     recordSale,
     getSale,
     todaySalesTotal,

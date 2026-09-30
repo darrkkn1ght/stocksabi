@@ -34,7 +34,7 @@ export const InsightsPage: React.FC = () => {
           serifTitle
         />
         <div className="mt-12 bg-[#F7F5EF] border border-[#E5E4DA] rounded-[24px] p-10 md:p-16 text-center shadow-xs">
-          <h2 className="text-2xl font-serif font-bold text-[#174B3A] mb-2">No data available yet.</h2>
+          <h2 className="text-2xl font-serif font-bold text-[#17243A] mb-2">No data available yet.</h2>
           <p className="text-[#73796F]">
             Insights will automatically generate once you start adding products and recording sales.
           </p>
@@ -101,8 +101,8 @@ export const InsightsPage: React.FC = () => {
                   <AreaChart data={revenueTrend} margin={{ top: 10, right: 0, left: -20, bottom: 0 }}>
                     <defs>
                       <linearGradient id="colorTrend" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="5%" stopColor="#174B3A" stopOpacity={0.1}/>
-                        <stop offset="95%" stopColor="#174B3A" stopOpacity={0}/>
+                        <stop offset="5%" stopColor="#17243A" stopOpacity={0.1}/>
+                        <stop offset="95%" stopColor="#17243A" stopOpacity={0}/>
                       </linearGradient>
                     </defs>
                     <XAxis 
@@ -118,14 +118,14 @@ export const InsightsPage: React.FC = () => {
                     />
                     <Tooltip 
                       contentStyle={{ borderRadius: '8px', border: '1px solid #E5E4DA', boxShadow: '0 4px 6px -1px rgba(0,0,0,0.05)' }}
-                      itemStyle={{ color: '#174B3A', fontWeight: 'bold' }}
+                      itemStyle={{ color: '#17243A', fontWeight: 'bold' }}
                       labelStyle={{ color: '#73796F', marginBottom: '4px' }}
                       formatter={(value: any) => [formatNaira(Number(value) || 0), 'Revenue']}
                     />
                     <Area 
                       type="monotone" 
                       dataKey="revenue" 
-                      stroke="#174B3A" 
+                      stroke="#17243A" 
                       strokeWidth={2}
                       fillOpacity={1} 
                       fill="url(#colorTrend)" 
@@ -161,7 +161,7 @@ export const InsightsPage: React.FC = () => {
                       {topProducts.map(p => (
                         <tr key={p.id} className="hover:bg-[#F7F5EF]/30 transition-colors">
                           <td className="px-5 py-4">
-                            <Link to={`/inventory/${p.id}`} className="text-[14px] font-bold text-[#202820] hover:text-[#174B3A]">
+                            <Link to={`/inventory/${p.id}`} className="text-[14px] font-bold text-[#202820] hover:text-[#17243A]">
                               {p.name}
                             </Link>
                           </td>
@@ -240,9 +240,9 @@ export const InsightsPage: React.FC = () => {
             ) : (
               <div className="space-y-3">
                 {stockRisks.map(risk => (
-                  <Link key={risk.id} to={`/inventory/${risk.id}`} className="block bg-white border border-[#E5E4DA] rounded-[12px] p-4 shadow-xs hover:border-[#174B3A]/30 hover:shadow-sm transition-all group">
+                  <Link key={risk.id} to={`/inventory/${risk.id}`} className="block bg-white border border-[#E5E4DA] rounded-[12px] p-4 shadow-xs hover:border-[#17243A]/30 hover:shadow-sm transition-all group">
                     <div className="flex justify-between items-start mb-2">
-                      <p className="text-sm font-bold text-[#202820] group-hover:text-[#174B3A] transition-colors pr-2 leading-tight">
+                      <p className="text-sm font-bold text-[#202820] group-hover:text-[#17243A] transition-colors pr-2 leading-tight">
                         {risk.name}
                       </p>
                       {risk.status === 'out_of_stock' && <AlertTriangle className="w-4 h-4 text-[#B74C43] shrink-0" />}
@@ -359,13 +359,13 @@ export const InsightsPage: React.FC = () => {
       {observations.length > 0 && (
         <section className="pt-8 mt-8 border-t border-[#E5E4DA]">
           <h2 className="text-2xl font-serif font-bold text-[#202820] mb-6 flex items-center gap-2">
-            <Lightbulb className="w-5 h-5 text-[#D7F36B]" /> What Stands Out
+            <Lightbulb className="w-5 h-5 text-[#356AE6]" /> What Stands Out
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {observations.map((obs, idx) => (
               <div key={idx} className="bg-white border border-[#E5E4DA] rounded-[16px] p-6 shadow-xs relative overflow-hidden group">
                 <div className={`absolute top-0 left-0 w-1 h-full ${
-                  obs.type === 'warning' ? 'bg-[#B74C43]' : obs.type === 'positive' ? 'bg-[#367A53]' : 'bg-[#174B3A]'
+                  obs.type === 'warning' ? 'bg-[#B74C43]' : obs.type === 'positive' ? 'bg-[#367A53]' : 'bg-[#17243A]'
                 }`}></div>
                 <h3 className="text-lg font-serif font-bold text-[#202820] mb-2 leading-tight pr-4">
                   {obs.title}

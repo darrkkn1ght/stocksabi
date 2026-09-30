@@ -14,11 +14,39 @@ import { ExpenseDetailsPage } from '../features/expenses/ExpenseDetailsPage'
 import { EditExpensePage } from '../features/expenses/EditExpensePage'
 import { InsightsPage } from '../features/insights/InsightsPage'
 import { SettingsPage } from '../features/settings/SettingsPage'
+import { LandingPage } from '../features/landing/LandingPage'
+import { LoginPage } from '../features/auth/LoginPage'
+import { SignUpPage } from '../features/auth/SignUpPage'
+import { ForgotPasswordPage } from '../features/auth/ForgotPasswordPage'
+import { ResetPasswordPage } from '../features/auth/ResetPasswordPage'
+import { OnboardingPage } from '../features/business/OnboardingPage'
+import { ProtectedRoute } from '../components/layout/ProtectedRoute'
+import { PublicRoute } from '../components/layout/PublicRoute'
 
 export const router = createBrowserRouter([
   {
-    path: '/',
-    element: <AppShell />,
+    path: '/landing',
+    element: <LandingPage />,
+  },
+  {
+    element: <PublicRoute />,
+    children: [
+      { path: '/login', element: <LoginPage /> },
+      { path: '/signup', element: <SignUpPage /> },
+      { path: '/forgot-password', element: <ForgotPasswordPage /> },
+      { path: '/reset-password', element: <ResetPasswordPage /> },
+    ]
+  },
+  {
+    element: <ProtectedRoute />,
+    children: [
+      {
+        path: '/onboarding',
+        element: <OnboardingPage />
+      },
+      {
+        path: '/',
+        element: <AppShell />,
     children: [
       {
         index: true,
@@ -97,4 +125,6 @@ export const router = createBrowserRouter([
       },
     ],
   },
+    ]
+  }
 ])

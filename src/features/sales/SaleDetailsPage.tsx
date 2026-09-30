@@ -31,7 +31,7 @@ export const SaleDetailsPage: React.FC = () => {
   return (
     <div className="max-w-4xl mx-auto pb-20 animate-in fade-in duration-200">
       <div className="mb-6">
-        <Link to="/sales" className="text-xs font-bold uppercase tracking-widest text-[#73796F] hover:text-[#174B3A] inline-flex items-center gap-1.5 transition-colors">
+        <Link to="/sales" className="text-xs font-bold uppercase tracking-widest text-[#73796F] hover:text-[#17243A] inline-flex items-center gap-1.5 transition-colors">
           <ArrowLeft className="w-3.5 h-3.5" /> Sales History
         </Link>
       </div>
@@ -162,9 +162,9 @@ export const SaleDetailsPage: React.FC = () => {
 
           <div>
             <h2 className="text-[10px] font-bold text-[#73796F] uppercase tracking-[0.15em] mb-4">Profit Analysis</h2>
-            <div className="bg-[#174B3A] border border-[#10372B] rounded-[16px] p-6 shadow-sm">
-              <p className="text-xs text-[#D7F36B]/70 mb-1">Gross Profit</p>
-              <p className="text-3xl font-bold font-mono tracking-tight text-[#D7F36B] mb-2">
+            <div className="bg-[#17243A] border border-[#111b2b] rounded-[16px] p-6 shadow-sm">
+              <p className="text-xs text-[#356AE6]/70 mb-1">Gross Profit</p>
+              <p className="text-3xl font-bold font-mono tracking-tight text-[#356AE6] mb-2">
                 {formatNaira(grossProfit)}
               </p>
               <p className="text-[10px] text-white/60 leading-relaxed">

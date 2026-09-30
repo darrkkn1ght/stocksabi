@@ -32,11 +32,11 @@ export const Badge: React.FC<BadgeProps> = ({
       dot: 'bg-[#73796F]',
     },
     primary: {
-      badge: 'bg-[#E8F1EC] text-[#174B3A] border border-[#CBDDD2]',
-      dot: 'bg-[#174B3A]',
+      badge: 'bg-[#DDE8FF] text-[#17243A] border border-[#b3c9fc]',
+      dot: 'bg-[#17243A]',
     },
     accent: {
-      badge: 'bg-[#F4F9D7] text-[#10372B] border border-[#DFF18A]',
+      badge: 'bg-[#F4F9D7] text-[#111b2b] border border-[#DFF18A]',
       dot: 'bg-[#728514]',
     },
   }

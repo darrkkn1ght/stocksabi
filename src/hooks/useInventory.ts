@@ -1,43 +1,17 @@
-import { useState, useEffect, useMemo, useCallback } from 'react'
+import { useMemo } from 'react'
 import type { Product, StockStatus } from '../types'
-import { getStorageItem, setStorageItem } from '../lib/storage'
-
-const INVENTORY_STORAGE_KEY = 'stocksabi_inventory'
+import { useData } from '../lib/DataContext'
 
 export function useInventory() {
-  const [products, setProducts] = useState<Product[]>(() =>
-    getStorageItem<Product[]>(INVENTORY_STORAGE_KEY, [])
-  )
+  const { products, addProduct, updateProduct, isLoading } = useData()
 
-  useEffect(() => {
-    setStorageItem(INVENTORY_STORAGE_KEY, products)
-  }, [products])
-
-  const addProduct = useCallback((product: Omit<Product, 'id' | 'createdAt' | 'updatedAt' | 'isArchived'>) => {
-    const newProduct: Product = {
-      ...product,
-      id: crypto.randomUUID(),
-      isArchived: false,
-      createdAt: new Date().toISOString(),
-      updatedAt: new Date().toISOString(),
-    }
-    setProducts((prev) => [...prev, newProduct])
-    return newProduct.id
-  }, [])
-
-  const updateProduct = useCallback((id: string, updates: Partial<Omit<Product, 'id' | 'createdAt'>>) => {
-    setProducts((prev) =>
-      prev.map((p) => (p.id === id ? { ...p, ...updates, updatedAt: new Date().toISOString() } : p))
-    )
-  }, [])
-
-  const archiveProduct = useCallback((id: string) => {
+  const archiveProduct = (id: string) => {
     updateProduct(id, { isArchived: true })
-  }, [updateProduct])
+  }
 
-  const getProduct = useCallback((id: string) => {
+  const getProduct = (id: string) => {
     return products.find((p) => p.id === id)
-  }, [products])
+  }
 
   const activeProducts = useMemo(() => products.filter((p) => !p.isArchived), [products])
   const archivedProducts = useMemo(() => products.filter((p) => p.isArchived), [products])
@@ -58,6 +32,7 @@ export function useInventory() {
     activeProducts,
     archivedProducts,
     inventoryValue,
+    isLoading,
     addProduct,
     updateProduct,
     archiveProduct,

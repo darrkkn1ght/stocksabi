@@ -15,6 +15,6 @@ export interface Sale {
   subtotal: number
   total: number
   paymentMethod: PaymentMethod
-  status: 'completed'
+  status: 'completed' | 'cancelled'
   createdAt: string
 }

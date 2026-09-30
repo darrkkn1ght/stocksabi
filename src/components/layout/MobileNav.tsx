@@ -30,7 +30,7 @@ export const MobileNav: React.FC = () => {
               className={({ isActive }) =>
                 `flex flex-col items-center justify-center min-w-[56px] py-1.5 px-2 rounded-lg text-[10px] font-medium transition-colors ${
                   isActive
-                    ? 'text-[#174B3A] font-semibold'
+                    ? 'text-[#17243A] font-semibold'
                     : 'text-[#73796F] hover:text-[#202820]'
                 }`
               }
@@ -39,7 +39,7 @@ export const MobileNav: React.FC = () => {
                 <>
                   <div
                     className={`p-1 rounded-md transition-colors ${
-                      isActive ? 'bg-[#174B3A]/10 text-[#174B3A]' : 'text-[#73796F]'
+                      isActive ? 'bg-[#17243A]/10 text-[#17243A]' : 'text-[#73796F]'
                     }`}
                   >
                     <Icon className="w-5 h-5" />

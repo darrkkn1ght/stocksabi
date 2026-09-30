@@ -68,7 +68,7 @@ export const ProductTable: React.FC<ProductTableProps> = ({ products, getStockSt
                 </td>
                 <td className="py-4">
                   <Link to={`/inventory/${product.id}`} className="block">
-                    <p className="text-[15px] font-semibold text-[#202820] group-hover:text-[#174B3A] transition-colors leading-tight">
+                    <p className="text-[15px] font-semibold text-[#202820] group-hover:text-[#17243A] transition-colors leading-tight">
                       {product.name}
                     </p>
                     <p className="text-xs text-[#73796F] mt-0.5">{product.category}</p>
@@ -90,7 +90,7 @@ export const ProductTable: React.FC<ProductTableProps> = ({ products, getStockSt
                   </p>
                 </td>
                 <td className="py-4 text-right pr-2">
-                  <Link to={`/inventory/${product.id}/edit`} className="inline-flex p-1.5 text-[#73796F] hover:text-[#174B3A] hover:bg-[#F7F5EF] rounded-md transition-colors">
+                  <Link to={`/inventory/${product.id}/edit`} className="inline-flex p-1.5 text-[#73796F] hover:text-[#17243A] hover:bg-[#F7F5EF] rounded-md transition-colors">
                     <MoreHorizontal className="w-4 h-4" />
                   </Link>
                 </td>
@@ -126,7 +126,7 @@ export const ProductTable: React.FC<ProductTableProps> = ({ products, getStockSt
                   {product.stockQuantity}
                 </span>
               </div>
-              <Link to={`/inventory/${product.id}/edit`} className="text-xs font-semibold text-[#174B3A] px-3 py-1.5 bg-white border border-[#E5E4DA] rounded-[8px]">
+              <Link to={`/inventory/${product.id}/edit`} className="text-xs font-semibold text-[#17243A] px-3 py-1.5 bg-white border border-[#E5E4DA] rounded-[8px]">
                 Edit
               </Link>
             </div>

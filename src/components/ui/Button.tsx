@@ -25,16 +25,16 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     ref
   ) => {
     const baseStyles =
-      'inline-flex items-center justify-center font-medium transition-all duration-150 focus:outline-none focus:ring-2 focus:ring-[#174B3A]/30 disabled:opacity-50 disabled:pointer-events-none select-none rounded-[10px]'
+      'inline-flex items-center justify-center font-medium transition-all duration-150 focus:outline-none focus:ring-2 focus:ring-[#17243A]/30 disabled:opacity-50 disabled:pointer-events-none select-none rounded-[10px]'
 
     const variants: Record<NonNullable<ButtonProps['variant']>, string> = {
-      primary: 'bg-[#174B3A] text-white hover:bg-[#10372B] active:translate-y-[1px]',
+      primary: 'bg-[#17243A] text-white hover:bg-[#111b2b] active:translate-y-[1px]',
       secondary:
         'bg-white text-[#202820] border border-[#E5E4DA] hover:bg-[#F7F5EF] hover:border-[#D8D6CB] active:translate-y-[1px]',
       accent:
-        'bg-[#D7F36B] text-[#10372B] font-semibold hover:bg-[#C9EB58] active:translate-y-[1px]',
+        'bg-[#356AE6] text-[#111b2b] font-semibold hover:bg-[#C9EB58] active:translate-y-[1px]',
       outline:
-        'bg-transparent text-[#174B3A] border border-[#174B3A] hover:bg-[#174B3A]/5 active:translate-y-[1px]',
+        'bg-transparent text-[#17243A] border border-[#17243A] hover:bg-[#17243A]/5 active:translate-y-[1px]',
       ghost:
         'bg-transparent text-[#73796F] hover:text-[#202820] hover:bg-black/5 active:translate-y-[1px]',
       danger: 'bg-[#B74C43] text-white hover:bg-[#9e3f37] active:translate-y-[1px]',

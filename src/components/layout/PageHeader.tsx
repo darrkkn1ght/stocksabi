@@ -23,7 +23,7 @@ export const PageHeader: React.FC<PageHeaderProps> = ({
     >
       <div className="space-y-1">
         {eyebrow && (
-          <p className="text-[11px] font-bold uppercase tracking-wider text-[#174B3A]">
+          <p className="text-[11px] font-bold uppercase tracking-wider text-[#17243A]">
             {eyebrow}
           </p>
         )}

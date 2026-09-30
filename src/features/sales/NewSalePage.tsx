@@ -77,10 +77,10 @@ export const NewSalePage: React.FC = () => {
 
   const subtotal = cart.reduce((sum, item) => sum + (item.quantity * item.sellingPrice), 0)
   
-  const handleCompleteSale = () => {
+  const handleCompleteSale = async () => {
     if (cart.length === 0 || !paymentMethod) return
     try {
-      const newSaleId = recordSale(cart, paymentMethod)
+      const newSaleId = await recordSale(cart, paymentMethod)
       setSuccessSaleId(newSaleId)
       setSuccessTotal(subtotal)
       setSuccessPayment(paymentMethod)
@@ -130,7 +130,7 @@ export const NewSalePage: React.FC = () => {
   return (
     <div className="max-w-5xl mx-auto pb-24 animate-in fade-in duration-200">
       <div className="mb-4">
-        <Link to="/sales" className="text-xs font-bold uppercase tracking-widest text-[#73796F] hover:text-[#174B3A] inline-flex items-center gap-1.5 transition-colors">
+        <Link to="/sales" className="text-xs font-bold uppercase tracking-widest text-[#73796F] hover:text-[#17243A] inline-flex items-center gap-1.5 transition-colors">
           <ArrowLeft className="w-3.5 h-3.5" /> Sales
         </Link>
       </div>
@@ -152,7 +152,7 @@ export const NewSalePage: React.FC = () => {
                 leftIcon={<Search className="w-4 h-4" />}
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="bg-[#F7F5EF] border-transparent focus:border-[#174B3A] focus:bg-white"
+                className="bg-[#F7F5EF] border-transparent focus:border-[#17243A] focus:bg-white"
               />
             </div>
             <div className="max-h-[400px] overflow-y-auto p-2 divide-y divide-[#E5E4DA]/50">
@@ -277,8 +277,8 @@ export const NewSalePage: React.FC = () => {
                     onClick={() => setPaymentMethod(method)}
                     className={`py-3 px-2 rounded-[10px] text-sm font-bold capitalize transition-all border ${
                       paymentMethod === method 
-                        ? 'bg-[#174B3A] text-[#D7F36B] border-[#174B3A] shadow-md transform scale-[1.02]' 
-                        : 'bg-white border-[#E5E4DA] text-[#73796F] hover:border-[#174B3A]/30 hover:text-[#202820]'
+                        ? 'bg-[#17243A] text-[#356AE6] border-[#17243A] shadow-md transform scale-[1.02]' 
+                        : 'bg-white border-[#E5E4DA] text-[#73796F] hover:border-[#17243A]/30 hover:text-[#202820]'
                     }`}
                   >
                     {method}
