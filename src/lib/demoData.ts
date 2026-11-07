@@ -1,7 +1,7 @@
 import type { Product } from '../types/product'
 import type { Sale } from '../types/sale'
 import type { Expense } from '../types/expense'
-import { setStorageItem, removeStorageItem } from './storage'
+import { setStorageItem } from './storage'
 
 export const INVENTORY_STORAGE_KEY = 'stocksabi_inventory'
 export const SALES_STORAGE_KEY = 'stocksabi_sales'
@@ -537,14 +537,41 @@ export function seedLocalDemoData() {
 
 export function loadDemoData() {
   seedLocalDemoData()
+  setStorageItem(BUSINESS_STORAGE_KEY, {
+    id: 'local-biz-1',
+    name: 'Tunde Provisions',
+    business_type: 'Provisions and groceries',
+    country: 'Nigeria',
+    currency: 'NGN',
+    location: 'Ibadan, Oyo State',
+  })
+  setStorageItem(SESSION_STORAGE_KEY, {
+    user: {
+      id: 'local-admin-user',
+      email: 'admin@stocksabi.com',
+      user_metadata: { full_name: 'Tunde' },
+      app_metadata: {},
+      aud: 'authenticated',
+      created_at: new Date().toISOString(),
+    },
+    isLocal: true,
+  })
   // Reload the window to ensure all states pick up the new local storage data
   window.location.href = '/'
 }
 
 export function resetDemoData() {
-  removeStorageItem(INVENTORY_STORAGE_KEY)
-  removeStorageItem(SALES_STORAGE_KEY)
-  removeStorageItem(EXPENSES_STORAGE_KEY)
+  setStorageItem(INVENTORY_STORAGE_KEY, [])
+  setStorageItem(SALES_STORAGE_KEY, [])
+  setStorageItem(EXPENSES_STORAGE_KEY, [])
+  setStorageItem(BUSINESS_STORAGE_KEY, {
+    id: 'local-biz-empty',
+    name: 'My Store',
+    business_type: 'Provisions and groceries',
+    country: 'Nigeria',
+    currency: 'NGN',
+    location: 'Ibadan, Oyo State',
+  })
   
   window.location.href = '/'
 }

@@ -115,14 +115,18 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       created_at: new Date().toISOString(),
     } as User
 
-    const defaultBiz: Business = getStorageItem<Business | null>(BUSINESS_STORAGE_KEY, null) || {
-      id: 'local-biz-1',
-      name: 'Tunde Provisions',
-      business_type: 'Provisions and groceries',
-      country: 'Nigeria',
-      currency: 'NGN',
-      location: 'Ibadan, Oyo State',
-    }
+    const savedBiz = getStorageItem<Business | null>(BUSINESS_STORAGE_KEY, null)
+    const defaultBiz: Business =
+      savedBiz && !savedBiz.name.toLowerCase().includes('built-in')
+        ? savedBiz
+        : {
+            id: 'local-biz-1',
+            name: 'Tunde Provisions',
+            business_type: 'Provisions and groceries',
+            country: 'Nigeria',
+            currency: 'NGN',
+            location: 'Ibadan, Oyo State',
+          }
 
     // Seed demo data if local inventory is empty
     const existingProducts = getStorageItem(INVENTORY_STORAGE_KEY, [])
@@ -178,10 +182,27 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       const localSession = getStorageItem<LocalAuthState | null>(SESSION_STORAGE_KEY, null)
       if (localSession?.isLocal && localSession.user) {
         if (mounted) {
+          const savedBiz = getStorageItem<Business | null>(BUSINESS_STORAGE_KEY, null)
+          const activeBiz: Business =
+            savedBiz && !savedBiz.name.toLowerCase().includes('built-in')
+              ? savedBiz
+              : {
+                  id: 'local-biz-1',
+                  name: 'Tunde Provisions',
+                  business_type: 'Provisions and groceries',
+                  country: 'Nigeria',
+                  currency: 'NGN',
+                  location: 'Ibadan, Oyo State',
+                }
+          if (activeBiz.id !== 'local-biz-empty') {
+            const existingProducts = getStorageItem(INVENTORY_STORAGE_KEY, [])
+            if (!existingProducts || existingProducts.length === 0) {
+              seedLocalDemoData()
+            }
+          }
           setIsLocalMode(true)
           setUser(localSession.user)
-          const savedBiz = getStorageItem<Business | null>(BUSINESS_STORAGE_KEY, null)
-          setBusiness(savedBiz)
+          setBusiness(activeBiz)
           setIsLoading(false)
         }
         return
@@ -196,6 +217,13 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
           setSession(supaSession)
           setUser(supaSession?.user ?? null)
           if (supaSession?.user) {
+            // If the browser had an active Supabase session for the built-in admin account,
+            // switch it to our rich local demo store so demo data always displays even if cloud tables are empty
+            if (supaSession.user.email?.toLowerCase() === 'admin@stocksabi.com') {
+              await loginWithLocalAdmin()
+              setIsLoading(false)
+              return
+            }
             await fetchBusiness(false)
           }
           setIsLoading(false)
@@ -218,6 +246,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       setUser(newSession?.user ?? null)
       
       if (newSession?.user) {
+        if (newSession.user.email?.toLowerCase() === 'admin@stocksabi.com') {
+          await loginWithLocalAdmin()
+          setIsLoading(false)
+          return
+        }
         await fetchBusiness(false)
       } else {
         setBusiness(null)

@@ -52,19 +52,7 @@ export const LoginPage: React.FC = () => {
   const handleBuiltInAdmin = async () => {
     setLoading(true)
     setError('')
-    const adminEmail = 'admin@stocksabi.com'
-    const adminPassword = 'password123'
-
     try {
-      const { error: signInError } = await supabase.auth.signInWithPassword({
-        email: adminEmail,
-        password: adminPassword,
-      })
-
-      if (signInError) {
-        await loginWithLocalAdmin()
-      }
-    } catch {
       await loginWithLocalAdmin()
     } finally {
       setLoading(false)

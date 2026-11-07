@@ -6,6 +6,7 @@ import {
   INVENTORY_STORAGE_KEY,
   SALES_STORAGE_KEY,
   EXPENSES_STORAGE_KEY,
+  seedLocalDemoData,
 } from './demoData'
 import type { Product, Sale, Expense } from '../types'
 
@@ -71,7 +72,21 @@ export const DataProvider: React.FC<{ children: React.ReactNode }> = ({ children
     setError(null)
 
     if (isLocalMode) {
-      const local = loadFromLocalStorage()
+      let local = loadFromLocalStorage()
+      const isDemoStore =
+        business.id === 'local-biz-1' ||
+        business.name.toLowerCase().includes('tunde') ||
+        business.name.toLowerCase().includes('built-in') ||
+        business.name.toLowerCase().includes('stocksabi')
+      if (
+        isDemoStore &&
+        local.products.length === 0 &&
+        local.sales.length === 0 &&
+        local.expenses.length === 0
+      ) {
+        seedLocalDemoData()
+        local = loadFromLocalStorage()
+      }
       setProducts(local.products)
       setSales(local.sales)
       setExpenses(local.expenses)
@@ -134,6 +149,30 @@ export const DataProvider: React.FC<{ children: React.ReactNode }> = ({ children
         date: e.date,
         createdAt: e.created_at
       }))
+
+      // If the built-in demo admin account has 0 records in Supabase, fall back to rich local demo data
+      const isBuiltInOrDemoAccount =
+        business.name.toLowerCase().includes('built-in') ||
+        business.name.toLowerCase().includes('tunde') ||
+        business.name.toLowerCase().includes('stocksabi')
+
+      if (
+        mappedProducts.length === 0 &&
+        mappedSales.length === 0 &&
+        mappedExpenses.length === 0 &&
+        (isBuiltInOrDemoAccount || getStorageItem<Product[]>(INVENTORY_STORAGE_KEY, []).length > 0)
+      ) {
+        let local = loadFromLocalStorage()
+        if (local.products.length === 0 && local.sales.length === 0 && local.expenses.length === 0) {
+          seedLocalDemoData()
+          local = loadFromLocalStorage()
+        }
+        setProducts(local.products)
+        setSales(local.sales)
+        setExpenses(local.expenses)
+        setIsLoading(false)
+        return
+      }
 
       // Mirror cloud data into localStorage for resilience
       setStorageItem(INVENTORY_STORAGE_KEY, mappedProducts)

@@ -24,7 +24,7 @@ export function useDashboardMetrics() {
     return 'Tunde'
   }, [business, user])
 
-  // Determine empty state
+  // Determine empty state — show empty state only if no products, sales, AND expenses exist
   const hasNoData = !isLoading && activeProducts.length === 0 && sales.length === 0 && expenses.length === 0
 
   // Today's metrics

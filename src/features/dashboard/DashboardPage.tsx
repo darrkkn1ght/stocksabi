@@ -102,6 +102,16 @@ export const DashboardPage: React.FC = () => {
           </p>
         </div>
         <div className="flex flex-col sm:flex-row items-center gap-3 shrink-0">
+          {activeProductsCount === 0 && recentTransactions.length === 0 && (
+            <Button
+              variant="secondary"
+              onClick={loadDemoData}
+              leftIcon={<Sparkles className="w-4 h-4 text-[#356AE6]" />}
+              className="w-full sm:w-auto border-[#356AE6]/30 text-[#17243A]"
+            >
+              Load demo data
+            </Button>
+          )}
           <Link to="/expenses/new" className="w-full sm:w-auto">
             <Button variant="secondary" className="w-full">
               Add expense
