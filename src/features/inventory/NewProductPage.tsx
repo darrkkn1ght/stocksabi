@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import { ProductForm } from './components/ProductForm'
 import type { ProductFormData } from './components/ProductForm'
@@ -8,10 +8,16 @@ import { ArrowLeft } from 'lucide-react'
 export const NewProductPage: React.FC = () => {
   const navigate = useNavigate()
   const { addProduct } = useInventory()
+  const [isSubmitting, setIsSubmitting] = useState(false)
 
-  const handleSubmit = (data: ProductFormData) => {
-    addProduct(data)
-    navigate('/inventory')
+  const handleSubmit = async (data: ProductFormData) => {
+    setIsSubmitting(true)
+    try {
+      await addProduct(data)
+      navigate('/inventory')
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   return (
@@ -31,7 +37,7 @@ export const NewProductPage: React.FC = () => {
         </p>
       </div>
 
-      <ProductForm onSubmit={handleSubmit} />
+      <ProductForm onSubmit={handleSubmit} isSubmitting={isSubmitting} />
     </div>
   )
 }

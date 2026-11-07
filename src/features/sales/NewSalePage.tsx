@@ -21,7 +21,9 @@ export const NewSalePage: React.FC = () => {
   
   const [successSaleId, setSuccessSaleId] = useState<string | null>(null)
   const [successTotal, setSuccessTotal] = useState<number>(0)
+  const [successProfit, setSuccessProfit] = useState<number>(0)
   const [successPayment, setSuccessPayment] = useState<PaymentMethod | null>(null)
+  const [isRecording, setIsRecording] = useState(false)
 
   const filteredProducts = useMemo(() => {
     if (!searchQuery) return activeProducts
@@ -76,18 +78,23 @@ export const NewSalePage: React.FC = () => {
   }
 
   const subtotal = cart.reduce((sum, item) => sum + (item.quantity * item.sellingPrice), 0)
+  const estimatedProfit = cart.reduce((sum, item) => sum + (item.quantity * (item.sellingPrice - item.costPrice)), 0)
   
   const handleCompleteSale = async () => {
-    if (cart.length === 0 || !paymentMethod) return
+    if (cart.length === 0 || !paymentMethod || isRecording) return
+    setIsRecording(true)
     try {
       const newSaleId = await recordSale(cart, paymentMethod)
       setSuccessSaleId(newSaleId)
       setSuccessTotal(subtotal)
+      setSuccessProfit(estimatedProfit)
       setSuccessPayment(paymentMethod)
       setCart([])
       setPaymentMethod(null)
     } catch (err: any) {
       alert(err.message || 'Failed to complete sale')
+    } finally {
+      setIsRecording(false)
     }
   }
 
@@ -97,10 +104,15 @@ export const NewSalePage: React.FC = () => {
         <div className="w-20 h-20 bg-[#367A53] rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg">
           <CheckCircle2 className="w-10 h-10 text-white" />
         </div>
-        <h1 className="text-4xl font-serif font-bold text-[#202820] mb-2 tracking-tight">Sale recorded</h1>
-        <p className="text-lg text-[#73796F] mb-12">
+        <h1 className="text-4xl font-serif font-bold text-[#202820] mb-2 tracking-tight">Sale recorded successfully</h1>
+        <p className="text-lg text-[#73796F] mb-6">
           <span className="font-bold text-[#202820]">{formatNaira(successTotal)}</span> received via <span className="capitalize font-bold text-[#202820]">{successPayment}</span>
         </p>
+
+        <div className="inline-flex items-center gap-3 px-5 py-3 rounded-[12px] bg-[#17243A] text-white mb-12 shadow-sm">
+          <span className="text-xs uppercase tracking-wider text-white/70 font-bold">Est. Gross Profit</span>
+          <span className="text-lg font-mono font-bold text-[#DDE8FF]">{formatNaira(successProfit)}</span>
+        </div>
         
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
           <Button 
@@ -109,7 +121,7 @@ export const NewSalePage: React.FC = () => {
             onClick={() => navigate(`/sales/${successSaleId}`)}
             className="w-full sm:w-auto min-w-[200px]"
           >
-            View sale
+            View sale receipt
           </Button>
           <Button 
             variant="primary" 
@@ -291,7 +303,8 @@ export const NewSalePage: React.FC = () => {
               variant="primary"
               size="lg"
               className="w-full text-base h-14 shadow-md"
-              disabled={cart.length === 0 || !paymentMethod}
+              disabled={cart.length === 0 || !paymentMethod || isRecording}
+              isLoading={isRecording}
               onClick={handleCompleteSale}
             >
               Complete Sale

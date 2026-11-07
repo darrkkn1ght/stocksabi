@@ -1,10 +1,12 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { supabase } from '../../lib/supabase'
+import { useAuth } from '../../lib/AuthContext'
 import { Button } from '../../components/ui/Button'
-import { Store } from 'lucide-react'
+import { Logo } from '../../components/ui/Logo'
 
 export const SignUpPage: React.FC = () => {
+  const { loginWithLocalCredentials } = useAuth()
   const [fullName, setFullName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -17,33 +19,47 @@ export const SignUpPage: React.FC = () => {
     setError('')
     setLoading(true)
 
-    const { error: signUpError } = await supabase.auth.signUp({
-      email,
-      password,
-      options: {
-        data: {
-          full_name: fullName,
-        },
+    try {
+      const { error: signUpError } = await supabase.auth.signUp({
+        email,
+        password,
+        options: {
+          data: {
+            full_name: fullName,
+          },
+        }
+      })
+
+      if (signUpError) {
+        if (
+          signUpError.message.toLowerCase().includes('fetch') ||
+          signUpError.message.toLowerCase().includes('network')
+        ) {
+          await loginWithLocalCredentials(email, fullName)
+          setLoading(false)
+          return
+        }
+        setError(signUpError.message)
+        setLoading(false)
+        return
       }
-    })
 
-    if (signUpError) {
-      setError(signUpError.message)
+      setSuccess(true)
       setLoading(false)
-      return
+    } catch {
+      await loginWithLocalCredentials(email, fullName)
+      setLoading(false)
     }
-
-    setSuccess(true)
-    setLoading(false)
   }
 
   return (
     <div className="min-h-screen bg-[#F7F5EF] flex flex-col justify-center py-12 sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md text-center">
-        <div className="w-12 h-12 rounded-[12px] bg-[#17243A] flex items-center justify-center text-[#356AE6] font-serif font-bold text-2xl mx-auto mb-4">
-          <Store className="w-6 h-6" />
+        <div className="flex justify-center mb-6">
+          <Logo />
         </div>
         <h2 className="text-3xl font-serif font-bold text-[#202820]">Create your account</h2>
+        <p className="mt-2 text-sm text-[#73796F]">Start managing your stock, sales, and expenses clearly.</p>
       </div>
 
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
@@ -76,6 +92,7 @@ export const SignUpPage: React.FC = () => {
                 <input
                   type="text"
                   required
+                  placeholder="Tunde Bakare"
                   value={fullName}
                   onChange={(e) => setFullName(e.target.value)}
                   className="w-full px-4 py-3 rounded-[10px] border border-[#E5E4DA] focus:ring-2 focus:ring-[#17243A] focus:border-transparent transition-all outline-none"
@@ -87,6 +104,7 @@ export const SignUpPage: React.FC = () => {
                 <input
                   type="email"
                   required
+                  placeholder="tunde@stocksabi.com"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   className="w-full px-4 py-3 rounded-[10px] border border-[#E5E4DA] focus:ring-2 focus:ring-[#17243A] focus:border-transparent transition-all outline-none"
@@ -99,6 +117,7 @@ export const SignUpPage: React.FC = () => {
                   type="password"
                   required
                   minLength={6}
+                  placeholder="At least 6 characters"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   className="w-full px-4 py-3 rounded-[10px] border border-[#E5E4DA] focus:ring-2 focus:ring-[#17243A] focus:border-transparent transition-all outline-none"

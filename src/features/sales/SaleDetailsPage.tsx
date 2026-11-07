@@ -40,7 +40,7 @@ export const SaleDetailsPage: React.FC = () => {
       <div className="flex flex-col md:flex-row md:items-start justify-between gap-6 pb-10 border-b border-[#E5E4DA]">
         <div>
           <h1 className="text-4xl md:text-5xl font-mono font-bold text-[#202820] tracking-tight leading-none mb-3">
-            {sale.id}
+            {sale.id.length > 12 ? `SL-${sale.id.slice(0, 6).toUpperCase()}` : sale.id}
           </h1>
           <div className="flex items-center gap-4 text-sm text-[#73796F]">
             <span>
@@ -163,8 +163,8 @@ export const SaleDetailsPage: React.FC = () => {
           <div>
             <h2 className="text-[10px] font-bold text-[#73796F] uppercase tracking-[0.15em] mb-4">Profit Analysis</h2>
             <div className="bg-[#17243A] border border-[#111b2b] rounded-[16px] p-6 shadow-sm">
-              <p className="text-xs text-[#356AE6]/70 mb-1">Gross Profit</p>
-              <p className="text-3xl font-bold font-mono tracking-tight text-[#356AE6] mb-2">
+              <p className="text-xs text-[#DDE8FF]/70 mb-1">Gross Profit</p>
+              <p className="text-3xl font-bold font-mono tracking-tight text-[#DDE8FF] mb-2">
                 {formatNaira(grossProfit)}
               </p>
               <p className="text-[10px] text-white/60 leading-relaxed">

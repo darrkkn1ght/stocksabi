@@ -26,9 +26,9 @@ export const EditProductPage: React.FC = () => {
     )
   }
 
-  const handleSubmit = (data: ProductFormData) => {
+  const handleSubmit = async (data: ProductFormData) => {
     if (id) {
-      updateProduct(id, data)
+      await updateProduct(id, data)
       navigate(`/inventory/${id}`)
     }
   }

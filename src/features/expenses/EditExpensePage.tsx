@@ -26,12 +26,12 @@ export const EditExpensePage: React.FC = () => {
     )
   }
 
-  const handleSubmit = (data: ExpenseFormData) => {
+  const handleSubmit = async (data: ExpenseFormData) => {
     if (id) {
       // Keep date format ISO string
       const expenseDate = new Date(data.date).toISOString()
       
-      updateExpense(id, {
+      await updateExpense(id, {
         ...data,
         date: expenseDate,
       })

@@ -107,7 +107,7 @@ export const SalesPage: React.FC = () => {
                         <td className="py-4">
                           <Link to={`/sales/${sale.id}`} className="block">
                             <p className="text-[15px] font-semibold text-[#202820] group-hover:text-[#17243A] transition-colors leading-tight font-mono tracking-tight">
-                              {sale.id}
+                              {sale.id.length > 12 ? `SL-${sale.id.slice(0, 6).toUpperCase()}` : sale.id}
                             </p>
                           </Link>
                         </td>
@@ -160,7 +160,9 @@ export const SalesPage: React.FC = () => {
                   <Link key={sale.id} to={`/sales/${sale.id}`} className="block py-4 hover:bg-white transition-colors">
                     <div className="flex justify-between items-start mb-2">
                       <div>
-                        <h3 className="text-base font-bold text-[#202820] font-mono leading-tight tracking-tight">{sale.id}</h3>
+                        <h3 className="text-base font-bold text-[#202820] font-mono leading-tight tracking-tight">
+                          {sale.id.length > 12 ? `SL-${sale.id.slice(0, 6).toUpperCase()}` : sale.id}
+                        </h3>
                         <p className="text-xs text-[#73796F] mt-0.5">
                           {new Date(sale.createdAt).toLocaleDateString('en-GB', { 
                             day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' 

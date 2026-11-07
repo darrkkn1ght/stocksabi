@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { supabase } from '../../lib/supabase'
+import { useAuth } from '../../lib/AuthContext'
+import { getStorageItem, setStorageItem } from '../../lib/storage'
 import { Menu, X, ArrowRight, BarChart3, Package, CreditCard, PieChart, ShieldCheck, Zap, LineChart, BookOpen, Receipt } from 'lucide-react'
 import { Logo } from '../../components/ui/Logo'
 
@@ -75,6 +77,14 @@ const Navbar: React.FC = () => {
 }
 
 const Hero: React.FC = () => {
+  const { loginWithLocalAdmin } = useAuth()
+  const navigate = useNavigate()
+
+  const handleLaunchDemo = async () => {
+    await loginWithLocalAdmin()
+    navigate('/')
+  }
+
   return (
     <section className="pt-32 pb-20 lg:pt-48 lg:pb-32 px-4 sm:px-6 lg:px-8 max-w-[1200px] mx-auto">
       <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
@@ -87,11 +97,14 @@ const Hero: React.FC = () => {
             Understand your stock, sales, and expenses in one place. STOCKSABI helps independent retailers see what is selling, what is running low, and how their business is performing.
           </p>
           <div className="flex flex-col sm:flex-row items-center gap-4 justify-center lg:justify-start">
-            <a href="#waitlist" className="w-full sm:w-auto bg-[#356AE6] text-white px-8 py-4 rounded-[10px] text-base font-bold hover:bg-[#2851B5] transition-all hover:-translate-y-0.5 shadow-lg shadow-[#356AE6]/30 flex items-center justify-center gap-2">
-              Join the Waitlist <ArrowRight className="w-4 h-4" />
-            </a>
-            <a href="#features" className="w-full sm:w-auto bg-white text-[#17243A] border border-[#17243A]/20 px-8 py-4 rounded-[10px] text-base font-bold hover:bg-[#F7F5EF] transition-all flex items-center justify-center">
-              Explore the Product
+            <button
+              onClick={handleLaunchDemo}
+              className="w-full sm:w-auto bg-[#356AE6] text-white px-8 py-4 rounded-[10px] text-base font-bold hover:bg-[#2851B5] transition-all hover:-translate-y-0.5 shadow-lg shadow-[#356AE6]/30 flex items-center justify-center gap-2 cursor-pointer"
+            >
+              Launch Live Demo <ArrowRight className="w-4 h-4" />
+            </button>
+            <a href="#waitlist" className="w-full sm:w-auto bg-white text-[#17243A] border border-[#17243A]/20 px-8 py-4 rounded-[10px] text-base font-bold hover:bg-[#F7F5EF] transition-all flex items-center justify-center">
+              Join the Waitlist
             </a>
           </div>
         </div>
@@ -369,21 +382,35 @@ const WaitlistSection: React.FC = () => {
         .insert([{ email, business_type: businessType }])
 
       if (error) {
-        if (error.code === '23505') { // Postgres unique violation error code
+        if (error.code === '23505') {
           setErrorMessage('You are already on the waitlist! We will be in touch soon.')
-        } else {
-          setErrorMessage(error.message || 'An error occurred while joining the waitlist.')
+          setStatus('error')
+          return
         }
-        setStatus('error')
-        return
+        // Fallback to local waitlist storage if Supabase is offline
+        const localWaitlist = getStorageItem<{ email: string; business_type: string; created_at: string }[]>('stocksabi_waitlist', [])
+        if (localWaitlist.some(w => w.email.toLowerCase() === email.toLowerCase())) {
+          setErrorMessage('You are already on the waitlist! We will be in touch soon.')
+          setStatus('error')
+          return
+        }
+        setStorageItem('stocksabi_waitlist', [...localWaitlist, { email, business_type: businessType, created_at: new Date().toISOString() }])
       }
 
       setStatus('success')
       setEmail('')
       setBusinessType('')
-    } catch (err: any) {
-      setErrorMessage('A network error occurred. Please try again.')
-      setStatus('error')
+    } catch {
+      const localWaitlist = getStorageItem<{ email: string; business_type: string; created_at: string }[]>('stocksabi_waitlist', [])
+      if (localWaitlist.some(w => w.email.toLowerCase() === email.toLowerCase())) {
+        setErrorMessage('You are already on the waitlist! We will be in touch soon.')
+        setStatus('error')
+        return
+      }
+      setStorageItem('stocksabi_waitlist', [...localWaitlist, { email, business_type: businessType, created_at: new Date().toISOString() }])
+      setStatus('success')
+      setEmail('')
+      setBusinessType('')
     }
   }
 

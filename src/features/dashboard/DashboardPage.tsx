@@ -1,9 +1,10 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { Plus, ArrowRight, TrendingUp, AlertCircle, CheckCircle2 } from 'lucide-react'
+import { Plus, ArrowRight, TrendingUp, AlertCircle, CheckCircle2, Sparkles } from 'lucide-react'
 import { AreaChart, Area, XAxis, Tooltip, ResponsiveContainer } from 'recharts'
 import { Button } from '../../components/ui/Button'
 import { formatNaira } from '../../lib/currency'
+import { loadDemoData } from '../../lib/demoData'
 import { useDashboardMetrics } from '../../hooks/useDashboardMetrics'
 import type { StockStatus } from '../../types'
 
@@ -22,8 +23,16 @@ export const DashboardPage: React.FC = () => {
     recentTransactions,
     needsAttention,
     weeklyActivity,
+    topSellingInsight,
     getStockStatus,
   } = useDashboardMetrics()
+
+  const getGreeting = () => {
+    const hour = new Date().getHours()
+    if (hour < 12) return 'Good morning'
+    if (hour < 17) return 'Good afternoon'
+    return 'Good evening'
+  }
 
   const getStatusColor = (status: StockStatus) => {
     switch (status) {
@@ -37,7 +46,7 @@ export const DashboardPage: React.FC = () => {
     return (
       <div className="max-w-4xl mx-auto py-20 animate-in fade-in duration-300">
         <h1 className="text-4xl md:text-5xl font-serif font-bold text-[#202820] tracking-tight leading-tight mb-4">
-          Good morning, {businessName}.
+          {getGreeting()}, {businessName}.
         </h1>
         
         <div className="mt-12 bg-white border border-[#E5E4DA] rounded-[24px] p-10 md:p-16 text-center shadow-xs relative overflow-hidden">
@@ -61,6 +70,16 @@ export const DashboardPage: React.FC = () => {
                 </Button>
               </Link>
             </div>
+
+            <div className="mt-8 pt-8 border-t border-[#E5E4DA]">
+              <button
+                type="button"
+                onClick={loadDemoData}
+                className="text-sm font-bold text-[#17243A] hover:text-[#356AE6] transition-colors inline-flex items-center gap-1.5"
+              >
+                <Sparkles className="w-4 h-4 text-[#356AE6]" /> Or explore with sample retail data &rarr;
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -76,7 +95,7 @@ export const DashboardPage: React.FC = () => {
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-6 border-b border-[#E5E4DA]">
         <div>
           <h1 className="text-4xl md:text-5xl font-serif font-bold text-[#202820] tracking-tight leading-none mb-3">
-            Good morning, {businessName}.
+            {getGreeting()}, {businessName}.
           </h1>
           <p className="text-[15px] text-[#73796F] font-serif italic tracking-wide">
             Here's what is happening in your business today.
@@ -125,8 +144,8 @@ export const DashboardPage: React.FC = () => {
             
             <div className="border-b sm:border-b-0 sm:border-r border-[#111b2b] pb-6 sm:pb-0 sm:pr-8 flex flex-col justify-between">
               <div>
-                <h3 className="text-[10px] font-bold text-[#356AE6]/80 uppercase tracking-[0.2em] mb-3">Gross Profit</h3>
-                <p className="text-3xl md:text-4xl font-serif font-bold text-[#356AE6] mb-2">
+                <h3 className="text-[10px] font-bold text-[#DDE8FF]/80 uppercase tracking-[0.2em] mb-3">Gross Profit</h3>
+                <p className="text-3xl md:text-4xl font-serif font-bold text-[#DDE8FF] mb-2">
                   {formatNaira(todayGrossProfit, { showDecimals: false })}
                 </p>
               </div>
@@ -139,8 +158,8 @@ export const DashboardPage: React.FC = () => {
 
             <div className="border-b sm:border-b-0 sm:border-r border-[#111b2b] pb-6 sm:pb-0 sm:pr-8 flex flex-col justify-between">
               <div>
-                <h3 className="text-[10px] font-bold text-[#356AE6]/80 uppercase tracking-[0.2em] mb-3">Expenses</h3>
-                <p className="text-3xl md:text-4xl font-serif font-bold text-[#356AE6] mb-2">
+                <h3 className="text-[10px] font-bold text-[#DDE8FF]/80 uppercase tracking-[0.2em] mb-3">Expenses</h3>
+                <p className="text-3xl md:text-4xl font-serif font-bold text-[#DDE8FF] mb-2">
                   {formatNaira(todayOperatingExpenses, { showDecimals: false })}
                 </p>
               </div>
@@ -177,7 +196,7 @@ export const DashboardPage: React.FC = () => {
           <section>
             <div className="flex justify-between items-end mb-6 border-b border-[#E5E4DA] pb-2">
               <h2 className="text-lg font-serif font-bold text-[#202820]">Sales activity</h2>
-              <span className="text-xs font-bold text-[#73796F] uppercase tracking-wider">This Week</span>
+              <span className="text-xs font-bold text-[#73796F] uppercase tracking-wider">Last 7 Days</span>
             </div>
             
             <div className="bg-white border border-[#E5E4DA] rounded-[16px] p-6 shadow-xs h-[300px] flex items-center justify-center">
@@ -222,6 +241,25 @@ export const DashboardPage: React.FC = () => {
             </div>
           </section>
 
+          {/* Editorial Business Insight Panel */}
+          {topSellingInsight && (
+            <section className="bg-[#17243A] text-white rounded-[20px] p-6 md:p-8 flex flex-col sm:flex-row sm:items-center justify-between gap-6 shadow-sm">
+              <div>
+                <p className="text-[10px] font-bold text-[#DDE8FF] uppercase tracking-[0.2em] mb-2">
+                  Your best-selling product {topSellingInsight.period === 'today' ? 'today' : ''}
+                </p>
+                <p className="text-xl md:text-2xl font-serif font-bold text-white leading-snug">
+                  "{topSellingInsight.name} generated {formatNaira(topSellingInsight.revenue, { showDecimals: false })} across {topSellingInsight.units} {topSellingInsight.units === 1 ? 'unit' : 'units'} sold."
+                </p>
+              </div>
+              <Link to="/insights" className="shrink-0">
+                <Button variant="secondary" size="sm" className="bg-white/10 text-white border-white/20 hover:bg-white/20">
+                  Full insights <ArrowRight className="w-3.5 h-3.5 ml-1" />
+                </Button>
+              </Link>
+            </section>
+          )}
+
           {/* Recent Transactions */}
           <section>
             <div className="flex justify-between items-end mb-6 border-b border-[#E5E4DA] pb-2">
@@ -246,7 +284,9 @@ export const DashboardPage: React.FC = () => {
                           <span className="text-xs font-bold text-[#202820] uppercase">{sale.paymentMethod.slice(0,1)}</span>
                         </div>
                         <div>
-                          <p className="text-sm font-bold text-[#202820] font-mono tracking-tight">{sale.id}</p>
+                          <p className="text-sm font-bold text-[#202820] font-mono tracking-tight">
+                            {sale.id.length > 12 ? `SL-${sale.id.slice(0, 6).toUpperCase()}` : sale.id}
+                          </p>
                           <div className="flex items-center gap-2 mt-0.5 text-xs text-[#73796F]">
                             <span>{sale.items.reduce((acc, i) => acc + i.quantity, 0)} items</span>
                             <span className="w-1 h-1 rounded-full bg-[#E5E4DA]"></span>

@@ -5,6 +5,7 @@ import {
   ShoppingBag,
   Package,
   ReceiptText,
+  TrendingUp,
   Settings,
 } from 'lucide-react'
 
@@ -14,6 +15,7 @@ export const MobileNav: React.FC = () => {
     { name: 'Sales', to: '/sales', icon: ShoppingBag },
     { name: 'Stock', to: '/inventory', icon: Package },
     { name: 'Expenses', to: '/expenses', icon: ReceiptText },
+    { name: 'Insights', to: '/insights', icon: TrendingUp },
     { name: 'Settings', to: '/settings', icon: Settings },
   ]
 
